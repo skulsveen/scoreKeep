@@ -1,0 +1,100 @@
+import 'babel-polyfill';
+import {Meteor} from 'meteor/meteor';
+import {Players} from './../imports/api/players';
+
+Meteor.startup(() => {
+
+  class Person {
+    constructor(name = 'Anonymus', age = 0) {
+      this.name = name;
+      this.age = age;
+    }
+    getGreeting() {
+      return `Hi I am ${this.name}.`
+    }
+    // getPersonDescription
+    getPersonDescription() {
+    // Evelina is 27 year(s) old
+      return `${this.name} is ${this.age} years old.`
+    }
+  }
+
+  class Employee extends Person {
+    constructor(name, age, title) {
+      super(name, age);
+      this.title = title;
+    }
+    getGreeting() {
+      if (this.title) {
+        return `Hi I am ${this.name}. I work as a ${this.title}`
+      } else {
+        return super.getGreeting();
+      }
+    }
+    hasJob() {
+      return !!this.title;
+    }
+  }
+
+  class Programmer extends Person {
+    constructor(name, age, preferedLanguage = 'assembly') {
+      super(name, age);
+      this.preferedLanguage = preferedLanguage;
+    }
+    getGreeting() {
+        return `Hi I am ${this.name}. I am a ${this.preferedLanguage} developer.`
+  }
+}
+
+  let userOne = new Programmer('Sebastian', 31, 'JavaScript');
+  console.log(userOne.getGreeting());
+
+});
+
+
+//Object Spread Operator
+let user = {
+  name: 'Sebastian',
+  location: 'Oslo',
+  age: 0
+};
+
+let person = {
+  age: 31,
+  ...user
+};
+
+//console.log(person);
+
+// Object Property Shorthand
+let bike = 'Scott';
+let stuff = {
+  bike,
+  laptop: 'Mac'
+};
+
+// console.log(stuff);
+
+let house = {
+  bedrooms: 2,
+  bathrooms: 1.5
+};
+let yearBuilt = 2003;
+
+let houseObject = {
+  ...house,
+  bedrooms: 3,
+  yearBuilt,
+  flooring: 'Wood'
+};
+
+console.log(houseObject);
+
+/*
+{
+  bedrooms: 3,
+  bathrooms: 1.5,
+  yearBuilt: 2003,
+  flooring: 'Wood'
+}
+*/
